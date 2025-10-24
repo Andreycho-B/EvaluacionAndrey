@@ -81,3 +81,5 @@ https://github.com/Andreycho-B/EvaluacionAndrey
 
 para el login:el usuario es 'user' + contraseña (es la generada en consola)
 
+para que pueda crear una cita  debe tener al menos un profesional en la base de datos.
+
