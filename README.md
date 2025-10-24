@@ -72,8 +72,12 @@ El sistema utiliza una base de datos MySQL con el siguiente esquema:
 - [x] Navegación intuitiva
 - [x] Formularios validados
 
+### repo: 
+https://github.com/Andreycho-B/EvaluacionAndrey
 
 ## Instalación
 
-¿Cómo esta intru? ya sé que usted sabe hacerlo, pero no esta demas colocar la instalación asi que hagame el favor y clona el repositorio, luego Configura la base de datos MySQL en `application.properties` Ejecuta la aplicación, luego se va a su navegador donde va copiar y pegar lo siguiente`http://localhost:8085` eso es todo gracias. Aprendí mucho en esta evaluación
+¿Cómo esta intru? ya sé que usted sabe hacerlo, pero no esta demas colocar la instalación asi que hagame el favor y clona el repositorio, luego Configura la base de datos MySQL en `application.properties` Ejecuta la aplicación, luego se va a su navegador donde va copiar y pegar lo siguiente`http://localhost:8085` eso es todo gracias. Aprendí mucho en esta evaluación 
+
+para el login:el usuario es 'user' + contraseña (es la generada en consola)
 
