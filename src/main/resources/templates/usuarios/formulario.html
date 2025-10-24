@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevo Cliente - TechStart Consultores</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" th:href="@{/}">
+                <i class="fas fa-rocket me-2"></i>TechStart Consultores
+            </a>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0"><i class="fas fa-user-plus me-2"></i>Nuevo Cliente Startup</h4>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{/usuarios/guardar}" th:object="${usuario}" method="post">
+                            <div class="mb-3">
+                                <label for="nombre" class="form-label">
+                                    <i class="fas fa-building me-1 text-primary"></i>Nombre de la Startup
+                                </label>
+                                <input type="text" class="form-control" id="nombre" th:field="*{nombre}" 
+                                       placeholder="Ej: Tech Innovations SAS" required>
+                                <div class="form-text">Nombre legal o comercial de la empresa startup.</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">
+                                    <i class="fas fa-envelope me-1 text-primary"></i>Email Corporativo
+                                </label>
+                                <input type="email" class="form-control" id="email" th:field="*{email}" 
+                                       placeholder="ejemplo@startup.com" required>
+                                <div class="form-text">Será utilizado para notificaciones y contacto.</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">
+                                    <i class="fas fa-lock me-1 text-primary"></i>Contraseña Temporal
+                                </label>
+                                <input type="password" class="form-control" id="password" th:field="*{password}" 
+                                       placeholder="Mínimo 6 caracteres" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="telefono" class="form-label">
+                                    <i class="fas fa-phone me-1 text-primary"></i>Teléfono de Contacto
+                                </label>
+                                <input type="text" class="form-control" id="telefono" th:field="*{telefono}" 
+                                       placeholder="+57 300 123 4567">
+                                <div class="form-text">Incluye código de país para contactos internacionales.</div>
+                            </div>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save me-1"></i>Guardar Cliente
+                                </button>
+                                <a th:href="@{/usuarios}" class="btn btn-outline-secondary">
+                                    <i class="fas fa-times me-1"></i>Cancelar
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container text-center">
+            <p>&copy; 2025 TechStart Consultores - Especialistas en Startups Tecnológicas</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

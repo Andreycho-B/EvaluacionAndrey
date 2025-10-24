@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicios - TechStart Consultores</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2c5aa0;
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+            --text-dark: #2d3748;
+            --text-light: #6c757d;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .navbar {
+            background: linear-gradient(135deg, var(--primary) 0%, #1e3a8a 100%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .service-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            background: var(--white);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+        }
+        
+        .price-tag {
+            background: linear-gradient(135deg, #198754 0%, #20c997 100%);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, #3b82f6 100%);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+        
+        .badge {
+            border-radius: 6px;
+            font-weight: 500;
+        }
+        
+        footer {
+            background: var(--text-dark);
+            color: var(--white);
+            margin-top: 4rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand fw-bold" th:href="@{/}">
+                <i class="fas fa-rocket me-2"></i>TechStart Consultores
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" th:href="@{/}">Inicio</a>
+                <a class="nav-link" th:href="@{/usuarios}">Clientes</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="fw-bold text-primary"><i class="fas fa-laptop-code me-2"></i>Servicios de Consultoría</h1>
+                <p class="text-muted">Soluciones tecnológicas especializadas para startups en crecimiento</p>
+            </div>
+            <a th:href="@{/servicios/nuevo}" class="btn btn-primary">
+                <i class="fas fa-plus me-1"></i>Nuevo Servicio
+            </a>
+        </div>
+
+        <!-- Services Grid -->
+        <div class="row">
+            <!-- Dynamic Services from Database -->
+            <div class="col-lg-4 col-md-6 mb-4" th:each="servicio : ${servicios}">
+                <div class="card service-card h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <h5 class="card-title fw-bold" th:text="${servicio.nombre}"></h5>
+                            <span class="price-tag" th:text="'$' + ${servicio.precio}"></span>
+                        </div>
+                        <p class="card-text text-muted" th:text="${servicio.descripcion}"></p>
+                        <div class="mb-3">
+                            <small class="text-muted">
+                                <i class="fas fa-clock me-1"></i>
+                                <span th:text="${servicio.duracion} ?: 'Duración flexible'"></span>
+                            </small>
+                        </div>
+                        <div class="tech-tags mb-3">
+                            <span class="badge bg-primary me-1 mb-1">Cloud</span>
+                            <span class="badge bg-success me-1 mb-1">Seguridad</span>
+                            <span class="badge bg-info mb-1">Escalabilidad</span>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <div class="btn-group w-100">
+                            <button class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-outline-danger btn-sm">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                            <a th:href="@{/login}" class="btn btn-primary btn-sm flex-grow-1">
+                                <i class="fas fa-calendar-plus me-1"></i>Agendar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Default Services for Demo -->
+            <div class="col-lg-4 col-md-6 mb-4" th:if="${servicios.empty}">
+                <div class="card service-card h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <h5 class="card-title fw-bold">Arquitectura Cloud AWS/Azure</h5>
+                            <span class="price-tag">$150</span>
+                        </div>
+                        <p class="card-text text-muted">Diseño e implementación de infraestructura cloud escalable para startups. Incluye best practices de seguridad y costos.</p>
+                        <div class="mb-3">
+                            <small class="text-muted">
+                                <i class="fas fa-clock me-1"></i>4 sesiones de 2 horas
+                            </small>
+                        </div>
+                        <div class="tech-tags mb-3">
+                            <span class="badge bg-primary me-1 mb-1">AWS</span>
+                            <span class="badge bg-primary me-1 mb-1">Azure</span>
+                            <span class="badge bg-success mb-1">DevOps</span>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <a th:href="@{/login}" class="btn btn-primary w-100 btn-sm">
+                            <i class="fas fa-calendar-plus me-1"></i>Agendar Consultoría
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 mb-4" th:if="${servicios.empty}">
+                <div class="card service-card h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <h5 class="card-title fw-bold">Seguridad de Aplicaciones</h5>
+                            <span class="price-tag">$200</span>
+                        </div>
+                        <p class="card-text text-muted">Auditoría completa de seguridad para aplicaciones web y móviles. Identificación de vulnerabilidades y plan de remediación.</p>
+                        <div class="mb-3">
+                            <small class="text-muted">
+                                <i class="fas fa-clock me-1"></i>Evaluación completa + reporte
+                            </small>
+                        </div>
+                        <div class="tech-tags mb-3">
+                            <span class="badge bg-success me-1 mb-1">Pentesting</span>
+                            <span class="badge bg-success me-1 mb-1">OWASP</span>
+                            <span class="badge bg-info mb-1">Compliance</span>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <a th:href="@{/login}" class="btn btn-primary w-100 btn-sm">
+                            <i class="fas fa-calendar-plus me-1"></i>Agendar Consultoría
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4" th:if="${servicios.empty}">
+                <div class="card service-card h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <h5 class="card-title fw-bold">Estrategia Mobile-First</h5>
+                            <span class="price-tag">$120</span>
+                        </div>
+                        <p class="card-text text-muted">Desarrollo de aplicaciones móviles nativas y estrategias cross-platform. UX/UI optimizado para engagement.</p>
+                        <div class="mb-3">
+                            <small class="text-muted">
+                                <i class="fas fa-clock me-1"></i>3 sesiones de consultoría
+                            </small>
+                        </div>
+                        <div class="tech-tags mb-3">
+                            <span class="badge bg-primary me-1 mb-1">React Native</span>
+                            <span class="badge bg-info me-1 mb-1">Flutter</span>
+                            <span class="badge bg-warning mb-1">UX/UI</span>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <a th:href="@{/login}" class="btn btn-primary w-100 btn-sm">
+                            <i class="fas fa-calendar-plus me-1"></i>Agendar Consultoría
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="text-center mt-5">
+            <div class="card bg-white">
+                <div class="card-body py-5">
+                    <h3 class="fw-bold text-primary">¿Necesitas una solución personalizada?</h3>
+                    <p class="text-muted">Contáctanos para desarrollar un plan de consultoría adaptado a las necesidades específicas de tu startup.</p>
+                    <a th:href="@{/login}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-calendar-alt me-2"></i>Solicitar Consultoría Personalizada
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="mt-4">
+            <a th:href="@{/}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-1"></i>Volver al Inicio
+            </a>
+            <a th:href="@{/usuarios}" class="btn btn-primary ms-2">
+                <i class="fas fa-users me-1"></i>Ver Clientes
+            </a>
+        </div>
+    </div>
+
+    <footer class="py-4">
+        <div class="container text-center">
+            <p class="mb-0">&copy; 2025 TechStart Consultores - Especialistas en Startups Tecnológicas</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

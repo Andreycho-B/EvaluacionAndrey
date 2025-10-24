@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechStart Consultores - Sistema de Gestión</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2c5aa0;
+            --secondary: #6c757d;
+            --success: #198754;
+            --info: #0dcaf0;
+            --warning: #ffc107;
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+            --text-dark: #2d3748;
+            --text-light: #6c757d;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .navbar {
+            background: linear-gradient(135deg, var(--primary) 0%, #1e3a8a 100%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary) 0%, #3b82f6 100%);
+            color: var(--white);
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.05)" points="0,1000 1000,0 1000,1000"/></svg>');
+            background-size: cover;
+        }
+        
+        .feature-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            background: var(--white);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            font-family: 'Arial', sans-serif;
+        }
+        
+        .tech-badge {
+            background: var(--primary);
+            color: var(--white);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin: 5px;
+            display: inline-block;
+            transition: transform 0.2s ease;
+        }
+        
+        .tech-badge:hover {
+            transform: scale(1.05);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, #3b82f6 100%);
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-weight: 600;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(44, 90, 160, 0.3);
+        }
+        
+        .section-title {
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+        
+        footer {
+            background: var(--text-dark);
+            color: var(--white);
+            margin-top: 4rem;
+        }
+        
+        .icon-wrapper {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, #3b82f6 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: var(--white);
+            font-size: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand fw-bold" th:href="@{/}">
+                <i class="fas fa-rocket me-2"></i>TechStart Consultores
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" th:href="@{/}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/usuarios}">Clientes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/servicios}">Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/login}">
+                            <i class="fas fa-sign-in-alt me-1"></i>Ingresar
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section text-center">
+        <div class="container position-relative">
+            <h1 class="display-5 fw-bold mb-4">Consultoría Tecnológica para Startups</h1>
+            <p class="lead mb-4 fs-5">Expertos en transformación digital, arquitectura cloud y estrategias de crecimiento para startups innovadoras</p>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="row text-center">
+                        <div class="col-md-4 mb-3">
+                            <div class="stat-number">50+</div>
+                            <p class="mb-0">Startups Asesoradas</p>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="stat-number">15</div>
+                            <p class="mb-0">Expertos Tecnológicos</p>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="stat-number">95%</div>
+                            <p class="mb-0">Éxito en Proyectos</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a th:href="@{/login}" class="btn btn-light btn-lg mt-4 px-4 py-2 fw-semibold">
+                <i class="fas fa-calendar-check me-2"></i>Agendar Consultoría
+            </a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center section-title">Nuestro Sistema de Gestión</h2>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card feature-card h-100 text-center p-4">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h5 class="card-title fw-bold">Gestión de Clientes</h5>
+                        <p class="card-text text-muted">Administra toda la información de tus clientes startups en un solo lugar con nuestra plataforma intuitiva.</p>
+                        <a th:href="@{/usuarios}" class="btn btn-primary mt-auto">Gestionar Clientes</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card feature-card h-100 text-center p-4">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h5 class="card-title fw-bold">Servicios Especializados</h5>
+                        <p class="card-text text-muted">Ofrece consultorías en desarrollo, cloud, seguridad y arquitectura escalable para startups tecnológicas.</p>
+                        <a th:href="@{/servicios}" class="btn btn-primary mt-auto">Ver Servicios</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card feature-card h-100 text-center p-4">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <h5 class="card-title fw-bold">Sistema de Citas</h5>
+                        <p class="card-text text-muted">Coordina sesiones de consultoría con nuestros expertos tecnológicos de manera eficiente y organizada.</p>
+                        <a th:href="@{/login}" class="btn btn-primary mt-auto">Agendar Cita</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specialization Section -->
+    <section class="py-5 bg-white">
+        <div class="container">
+            <h2 class="text-center section-title">Especialidades Tecnológicas</h2>
+            <div class="row">
+                <div class="col-md-3 col-6 text-center mb-4">
+                    <div class="mb-3">
+                        <i class="fas fa-cloud fa-2x text-info"></i>
+                    </div>
+                    <h6 class="fw-bold">Arquitectura Cloud</h6>
+                    <small class="text-muted">AWS, Azure, GCP</small>
+                </div>
+                <div class="col-md-3 col-6 text-center mb-4">
+                    <div class="mb-3">
+                        <i class="fas fa-shield-alt fa-2x text-success"></i>
+                    </div>
+                    <h6 class="fw-bold">Ciberseguridad</h6>
+                    <small class="text-muted">Pentesting, Seguridad App</small>
+                </div>
+                <div class="col-md-3 col-6 text-center mb-4">
+                    <div class="mb-3">
+                        <i class="fas fa-mobile-alt fa-2x text-primary"></i>
+                    </div>
+                    <h6 class="fw-bold">Desarrollo Móvil</h6>
+                    <small class="text-muted">iOS, Android, React Native</small>
+                </div>
+                <div class="col-md-3 col-6 text-center mb-4">
+                    <div class="mb-3">
+                        <i class="fas fa-chart-line fa-2x text-warning"></i>
+                    </div>
+                    <h6 class="fw-bold">Análisis de Datos</h6>
+                    <small class="text-muted">BI, Machine Learning</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center section-title">Tecnologías que Dominamos</h2>
+            <div class="text-center">
+                <span class="tech-badge">Java/Spring Boot</span>
+                <span class="tech-badge">Node.js</span>
+                <span class="tech-badge">Python/Django</span>
+                <span class="tech-badge">React/Vue.js</span>
+                <span class="tech-badge">AWS Cloud</span>
+                <span class="tech-badge">Docker/Kubernetes</span>
+                <span class="tech-badge">MySQL/PostgreSQL</span>
+                <span class="tech-badge">MongoDB</span>
+                <span class="tech-badge">Redis</span>
+                <span class="tech-badge">Elasticsearch</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="fw-bold"><i class="fas fa-rocket me-2"></i>TechStart Consultores</h5>
+                    <p class="mb-0">Especialistas en transformación digital para startups innovadoras.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-1">&copy; 2025 TechStart Consultores. Todos los derechos reservados.</p>
+                    <p class="mb-0">Evaluación Andrey - Sistema de Gestión</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
